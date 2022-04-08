@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/searh-gif/static/css/main.4ffe9652.css",
+    "main.js": "/searh-gif/static/js/main.73522576.js",
+    "index.html": "/searh-gif/index.html",
+    "main.4ffe9652.css.map": "/searh-gif/static/css/main.4ffe9652.css.map",
+    "main.73522576.js.map": "/searh-gif/static/js/main.73522576.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4ffe9652.css",
+    "static/js/main.73522576.js"
+  ]
+}
