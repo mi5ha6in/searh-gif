@@ -1,25 +1,51 @@
 import React, { useState, useEffect } from "react";
-import { getSearchedGIF } from "./services/TheGiphyApi";
-import "./App.css";
+import { getSearchedGifArray } from "./services/TheGiphyApi";
+import { SearchInput } from "./components/SearchInput";
+import { List } from "./components/List";
+
+const commandMap = {
+  gif: "/gif ",
+};
 
 export const App = () => {
-  const [searchedGif, setSearchedGif] = useState("");
-  const query = 'cat';
+  const [searchInput, setSearchInput] = useState("");
+  const [query, setQuery] = useState("");
+  const [searchedGifArray, setSearchedGifArray] = useState([]);
 
-  const loadSearchedGif = async () => {
+  const loadSearchedGif = async (query) => {
     try {
-      const searchedGifArray = await  getSearchedGIF(query);
-      setSearchedGif(searchedGifArray)
+      const responseSearchedGifArray = await getSearchedGifArray(query);
+      setSearchedGifArray(responseSearchedGifArray);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    loadSearchedGif()
-  }, []);
+    if (searchInput.startsWith(commandMap.gif)) {
+      setQuery(searchInput.slice(commandMap.gif.length));
+    }
+  }, [searchInput]);
+
+  useEffect(() => {
+    if (query) {
+      loadSearchedGif(query);
+    }
+  }, [query]);
 
   return (
-    <>cat</>
-  )
+    <>
+      <div className="web-messenger">
+        <div className="web-messenger__list">
+          <List images={searchedGifArray} />
+        </div>
+        <div className="web-messenger__search">
+          <SearchInput
+            searchInput={searchInput}
+            setSearchInput={setSearchInput}
+          />
+        </div>
+      </div>
+    </>
+  );
 };
